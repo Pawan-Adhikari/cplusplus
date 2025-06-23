@@ -34,15 +34,12 @@ int main() {
     // obj2.displayNum();
 
     // ii) const_object.const_mem_function
-    // A constant object can call a constant member function.
     obj2.displayNumplus2();
 
     // iii) non_const_object.non_const_mem_function
-    // A non-constant object can call a non-constant member function.
     obj1.displayNum();
 
     // iv) non_const_object.const_mem_function
-    // A non-constant object can also call a constant member function.
     obj1.displayNumplus2();
 
     return 0;

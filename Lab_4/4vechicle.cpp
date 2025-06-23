@@ -39,10 +39,10 @@ class vehicle{
 
 int main(){
     vehicle v1(101, 5, 20);
-    cout << "Details of v1:\n";
+    cout << "Charge of v1:\n";
     v1.DisplayCharge();
 
     vehicle v2(v1);
-    cout << "\nDetails of v2 (copied from v1):\n";
+    cout << "Charge of v2 (copied from v1):\n";
     v2.DisplayCharge();
 }

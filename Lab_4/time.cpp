@@ -9,47 +9,32 @@ class Time {
         int hours;
         int minutes;
         int seconds;
-        string handle;
     public:
         Time(){
             hours = 0;
             minutes = 0;
             seconds =0;
-            handle = "";
         }
         Time(int h, int m, int s){
             hours = h;
             minutes= m;
             seconds = s;
-            handle ="";
         }
         void Display24(){
-            if (handle == ""){
-                cout << "The time in 24hr format is: \n";
-                cout << hours << ":" << minutes <<":" << seconds<<"\n";
-            }
-            else if (handle == "A.M" ){
-                cout << "The time 24hr format is: \n";
-                cout << hours << ":" << minutes <<":" << seconds<<"\n";
-            }
-            else {
-                cout << "The time 24hr format is: \n";
-                hours += 12;
-                cout << (hours) <<":" <<minutes << ":" << seconds << "\n";
-        }
+            cout << "The time in 24hr format is: \n";
+            cout << hours << ":" << minutes <<":" << seconds<<"\n";
     }
         
         void Display12(){
             cout << "The time is: \n";
 
             if (hours > 12) {
-                handle = "P.M";
-                hours -= 12;
+                cout << hours << ":" << minutes <<":" << seconds<<"P.M"<<"\n";
             }
             else if (handle == "A.M");
             else handle = "A.M";
 
-            cout << hours << ":" << minutes <<":" << seconds<<handle<<"\n";
+            cout << hours << ":" << minutes <<":" << seconds<<<"\n";
         }
 };
 

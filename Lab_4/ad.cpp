@@ -1,3 +1,4 @@
+
 //2conc.
 //Concatenate two string objects.
 
@@ -7,18 +8,16 @@ using namespace std;
 
 class CharArr {
     private:
-        char *value;
+        char *value = new char[30];
     public:
         CharArr(){
-            value = new char[2];
-            strcpy(value," ");
+            strcpy(value,"");
         }
         CharArr(char c[]){
-            value = new char[strlen(c)+1];
             strcpy(value,c);
         }
         char* join(CharArr &other1, CharArr &other2) {
-            char* result= new char[strlen(other1.value)+strlen(other2.value)+2]; 
+            char* result= new char[60]; 
             strcpy(result, other2.value);
 
             
@@ -30,7 +29,6 @@ class CharArr {
             result[l + i +1] = '\n';
 
             return result;
-
         }
         ~CharArr(){
            delete[] value;
