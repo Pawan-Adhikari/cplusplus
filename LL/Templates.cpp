@@ -30,7 +30,7 @@ int main(void){
     char* charArr{new char[mySize]{'a','b','c','d','e'}};
     vector<int> myIntVec(intArr, mySize);
     myIntVec.displayAll();
-    std::cout << "Now displaying Character Array: " << std::endl;
+    std::cout << "Now displaying Character Arrays: " << std::endl;
     vector<char> myCharVec(charArr, mySize);
     myCharVec.displayAll();
 }
