@@ -24,9 +24,6 @@ public:
     }
     int getcm(){return cm;}
     int getm(){return m;}
-    operator float(){
-        return (m + float(cm)/100);
-    }
     void showdata(){
         cout<< m << " Metre "<< cm <<" CentiMetre"<<endl;
     }
@@ -48,9 +45,9 @@ public:
         in = inn;
     }
     DistanceFPS(DistanceCGS dcgs){
-        float i = ((dcgs.getcm() + dcgs.getm() * 100)*25)/64;
+        float i = ((dcgs.getcm() + dcgs.getm()*100)*25)/64;
         f = i / 12;
-        in = int(i - f);
+        in = int(i - f*12);
     }
     operator DistanceCGS(){
         float c = (f * 12 + in)*2.54;
