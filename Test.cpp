@@ -5,23 +5,29 @@
 
 using namespace std;
 
-class TestClass {
+class Cartesian {
 private:
     int x,y;
 public:
-    TestClass(int _x = 0, int _y = 0) : x(_x), y(_y) {}
+    Cartesian(int _x = 0, int _y = 0) : x(_x), y(_y) {}
     void display() const{
         cout << "x = " << x << endl;
         cout << "y = " << y <<endl;
         cout << "_______" << endl;
     }
+    friend Polar;
+};
+
+class Polar{
+    int r, theta;
+    Polar( int _r = 0, int _theta = 0) : r(_r), theta(_theta) {}
+    void display () const {
+        cout << "r = " << r << endl;
+        cout << "theta = " << theta << endl;
+    }
 };
 
 int main() {
-    TestClass t1{}, t2, t3(1), t4(1,2);
-    t1.display(); 
-    t2.display();
-    t3.display();
-    t4.display();
+
     return 0;
 }
