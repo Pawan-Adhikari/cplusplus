@@ -13,8 +13,20 @@ public:
     friend ostream& operator << (ostream &os, Complex &cp);
     friend istream& operator >> (istream &is, Complex &cp);
 };
-
+ostream& operator << (ostream &os, Complex &cp){
+    os << cp.real << showpos << cp.img << "i";
+    return os;
+}
+istream& operator >> (istream &is, Complex &cp){
+    cout << "Enter real part: ";
+    is >> cp.real;
+    cout << "Enter imaginary part: ";
+    is >> cp.img;
+    return is;
+}
 int main() {
-    
+    Complex myComp;
+    cin >> myComp;
+    cout << myComp << endl;
     return 0;
 }
