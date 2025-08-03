@@ -35,4 +35,3 @@ int main(){
     }while (prompt!='n');
     return 0;
 }
-

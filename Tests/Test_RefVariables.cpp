@@ -9,7 +9,7 @@ int main() {
     int num = 0;
     int num1 = 5;
     //&num1 = &num; error 
-    int &nump = num;
+    int &nump = num; 
     //nump=num1; //fine, just testing. Caveat: This changes the value of nump, as well as num, 
     //but doesnot update the adress nump was "aliasing?" to.
     
