@@ -28,6 +28,8 @@ class Account{
         friend class FileHandler;
 };
 
+
+
 class FileHandler{
     private:
         fstream fptr;
@@ -35,43 +37,74 @@ class FileHandler{
     public:
         FileHandler(string file_dir = "Transaction.dat", ios::open_mode mode = ios::binary | ios::in | ios::out){
             fptr.open(file_dir, mode);
-            fptr.seekg(0, ios::end);
-            no_record = fptr.tellg() / sizeof(Account);
+            fptr.seekg(0);
+            if(fptr.read(reinterpret_cast<char*>(&no_record),sizeof(int))){
+                cout << "Read current entry count!" << endl;
+            }
+            else {
+                cout << "The file is empty! Initializing entry count = 0!" << endl;
+                no_record = 0;
+                ChangeRecordNumber(no_record);
+            }
+            cout << "No. of entries: " << no_record << endl;;
+
         }
-        void AddEntry(int addpos = no_record * sizeof(Account)){
+        void ChangeRecordNumber(int newR){
+            fptr.clear();
+            fptr.seekp(0);
+            if(fptr.write(reinterpret_cast<char*>(&newR), sizeof(newR))){
+                cout << "Changed no of record successfully!" << endl;
+            }
+        }
+        void AddEntry(int addpos = (no_record*sizeof(Account)) + sizeof(int)){
+            cout << "To add position: " << addpos << endl;
             fptr.seekp(addpos);
             Account acc;
             acc.SetValues();
-            fptr.write(reinterpret_cast<char *> (&acc), sizeof(acc));
+            if(fptr.write(reinterpret_cast<char *> (&acc), sizeof(acc))){
+                cout << "Wrote successfully and p pointer reached: " << fptr.tellp() << endl;
+            }
             ++no_record;
+            cout << "Added at: " << int(fptr.tellp()) - int(sizeof(Account)) << endl;
+            this ->ChangeRecordNumber(no_record);
+            cout << "No. of entries: " << no_record << endl;
             cout << "\n";
         }
+        
         void DeleteEntry(int an){
             Account temp;
-            fptr.seekg(0);
-            while (fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account)) && fptr.tellg() <= sizeof(Account) * no_record){
+            fptr.seekg(sizeof(int), ios::beg);
+            
+            while (fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account)) && (fptr.tellg() <= (sizeof(Account)*no_record) + sizeof(int))){
                 if (temp.account_number == an) {
-                    cout << "Found your entry!" << endl;
-                    int found_pos = (fptr.tellg());
-                    fptr.seekp(found_pos-sizeof(Account));
-                    fptr.seekg(-static_cast<std::streamoff>(sizeof(Account)), ios::end);
+                    temp.DisplayInfo();
+                    int found_pos = int(fptr.tellg())-int(sizeof(Account));
+                    cout << "Found to be deleted entry's start at: " << found_pos << endl;
+                    fptr.seekg(((no_record-1)*sizeof(Account))+sizeof(int), ios::beg);
+                    cout << "Last entry's start at: " << fptr.tellg() << endl;
                     fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account));
+                    temp.DisplayInfo();
+                    fptr.seekp(found_pos);
+                    cout << "Overwriting with ^^ at: " << fptr.tellp() << endl;
                     fptr.write(reinterpret_cast<char *> (&temp), sizeof(Account));
-                    cout << "Deleted your entry!\n" << endl;
                     no_record -= 1;
+                    this ->ChangeRecordNumber(no_record);
+                    cout << "No. of entries: " << no_record << endl;
+                    cout << "Deleted your entry!\n" << endl;
                     break;
                 }
             }
         }
         void UpdateEntry(int an){
             Account temp;
-            fptr.seekg(0);
-            while (fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account)) && fptr.tellg() <= sizeof(Account) * no_record){
+            fptr.seekg(sizeof(int), ios::beg);
+            while (fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account)) && fptr.tellg() <= (sizeof(Account) * no_record) + sizeof(int)){
                 if (temp.account_number == an) {
-                    cout << "Found your entry!" << endl;
+                    cout << "Found your entry at: " << fptr.tellg() << endl;
                     int found_pos = int(fptr.tellg())-int(sizeof(Account));
                     this -> AddEntry(found_pos);
                     no_record -= 1;
+                    cout << "No. of entries: " << no_record << endl;
                     cout << "Updated Successfully!\n" << endl;
                     break;
                 }
@@ -79,11 +112,12 @@ class FileHandler{
         }
         void DisplayEntry(int an){
             Account temp;
-            fptr.seekg(0);
-            while (fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account)) && fptr.tellg() <= sizeof(Account) * no_record){
+            fptr.seekg(sizeof(int), ios::beg);
+            while (fptr.read(reinterpret_cast<char *> (&temp), sizeof(Account)) && fptr.tellg() <= (sizeof(Account) * no_record) + sizeof(int)){
                 if (temp.account_number == an) {
-                    cout << "Found your entry!" << endl;
+                    cout << "Found your entry at: " << fptr.tellg() << endl;
                     temp.DisplayInfo();
+                    cout << "No. of entries: " << no_record << endl;
                     cout << "\n";
                     break;
                 }
@@ -131,4 +165,4 @@ int main(){
         }
     }   
     return 0;
-}
+}   
