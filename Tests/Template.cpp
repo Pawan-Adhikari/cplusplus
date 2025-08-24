@@ -1,13 +1,12 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
-template <class T>
-T add(T a, T b) {
 
-    return a + b;
+template <typename T>
+T add(T a, T b){
+    return (a+b);
 }
-
-
 
 int main() {
     // Example 1: Calling the add function with integers.
@@ -25,6 +24,8 @@ int main() {
     // The '+' operator for strings performs concatenation.
     std::string stringSum = add(std::string("Hello, "), std::string("World!"));
     std::cout << "String concatenation: " << stringSum << std::endl;
+
+    cout << "Sum of 2 and 3: " << add<int>(2,3) <<endl;
 
     return 0;
 }
