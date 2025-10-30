@@ -35,7 +35,7 @@ int main() {
     v1 = &b1;
     v2 = &c1;
     b = dynamic_cast<Bus*>(v1);
-    if (b) {`
+    if (b) {
         cout << "v1 is a Bus type." << endl;
     }
     else{
@@ -43,4 +43,4 @@ int main() {
     }
     cout << "The unmangled type of v2 is :" << typeid(*v2).name() <<endl;
     return 0;
-}``
+}
