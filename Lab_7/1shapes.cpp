@@ -20,6 +20,7 @@ public:
         cout << a << endl;
         cout << b <<endl;
     }
+    
     virtual ~Shape(){cout<<"Base destructor"<<endl;}
 };
 
@@ -52,13 +53,17 @@ public:
 
 int main() {
     Shape *circ, *rec;
-    circle c(5);
-    rectangle r(10,5);
-    circ = &c;
-    rec = &r;
+    //circle c(5);
+    //rectangle r(10,5);
+    //circ = &c;
+    //rec = &r;
+    circ = new circle(5);
+    rec = new rectangle(10,5);
     circ->display();
     rec->display();
     cout << "Area of circle: " << circ->area() <<endl; 
     cout << "Area of rectangle: " << rec->area() <<endl; 
+    delete circ;
+    delete rec;
     return 0;
 }
